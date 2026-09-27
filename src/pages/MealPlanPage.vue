@@ -12,12 +12,13 @@
   ];
 
   const inputValue = ref("");
+  const myInput = ref(null);
   const items = ref(JSON.parse(localStorage.getItem("items") || "[]"));
   const randomItems = ref(
     JSON.parse(localStorage.getItem("randomItems") || "[]"),
   );
 
-  const isAddPlus = computed(() => inputValue.value.trim().length > 0);
+  // const isAddPlus = computed(() => /\S/.test(inputValue.value)); Why is the output different on desktop and mobile?
 
   const addItem = () => {
     const newItem = inputValue.value.trim();
@@ -26,6 +27,7 @@
 
     items.value.push(newItem);
     inputValue.value = "";
+    myInput.value.focus();
   };
 
   const removeItem = (index) => {
@@ -100,13 +102,11 @@
       </header>
 
       <form class="col-12 mb-3" @submit.prevent="addItem">
-        <div
-          class="row justify-content-between rounded-3 bg-light"
-          :class="{ boxShadow: isAddPlus }"
-        >
+        <div class="row justify-content-between rounded-3 bg-light boxShadow">
           <!-- code -->
           <div class="col">
             <input
+              ref="myInput"
               v-model="inputValue"
               class="w-100 border-0 ps-3 pe-3"
               placeholder="یه غذای جدید بنویس…"
@@ -116,9 +116,7 @@
 
           <div class="col-auto">
             <button
-              class="rounded-3 border-0 btn-add-plus"
-              :class="{ addPlus: isAddPlus }"
-              :disabled="!isAddPlus"
+              class="rounded-3 border-0 btn-add-plus addPlus"
               type="submit"
               aria-label="افزودن غذا"
             >

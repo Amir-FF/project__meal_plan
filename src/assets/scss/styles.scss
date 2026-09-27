@@ -86,7 +86,7 @@ form {
 
     .addPlus:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 14px rgba(112, 72, 232, 0.3);
+      box-shadow: 0 6px 14px rgba(112, 72, 232, 0.3) !important;
     }
 
     .addPlus:active {
